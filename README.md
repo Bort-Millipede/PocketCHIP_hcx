@@ -1,6 +1,6 @@
 # PocketCHIP hcx (hcxdumptool and hcxtools)
 
-Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device originally manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. Finally, building instructions for advanced users who prefer to build their own software and driver (rather than use the precompiled ones included in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)) will be included at a later date.
+Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device originally manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. Finally, building instructions for advanced users who prefer to build their own software and driver (rather than the precompiled ones available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)) are included in subpages.
 
 While the information included here could easily be used for other renditions of the CHIP computer, the PocketCHIP is specifically targeted due to the portable nature of the device.
 
@@ -219,4 +219,9 @@ sudo dhclient -v -4 wlan0
 ![](images/pocketchip_hcxdumptool_6.1.2.png)  
 *hcxdumptool 6.1.2 executed on PocketCHIP*
 
+## Building
+
+For advanced users that prefer to build the software and drivers themselves, two options are outlined for this:
+* [Cross-Compilation (Recommended)](building/cross-compiling)
+* [Native Build on PocketCHIP](building/native)
 
