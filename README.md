@@ -1,8 +1,18 @@
 # PocketCHIP hcx (hcxdumptool and hcxtools)
 
-Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device original manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. Finally, building instructions for advanced users who prefer to build their own software and driver (rather than use the precompiled ones included in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)) will be included at a later date.
+Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device originally manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. Finally, building instructions for advanced users who prefer to build their own software and driver (rather than use the precompiled ones included in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)) will be included at a later date.
 
 While the information included here could easily be used for other renditions of the CHIP computer, the PocketCHIP is specifically targeted due to the portable nature of the device.
+
+## Disclaimer
+
+The author provides all information for free without warranty, and assumes no responsibility for any damage caused to any systems by leveraging the information. It is the responsibility of the reader to abide by all local, state and federal laws while digesting and using the information.
+
+Digest and use this at your own risk!!!
+
+### Per the hcxdumptool/hcxtools Developer
+
+hcxdumptool/hcxtools is NOT recommended to be used by inexperienced users or newbies. The entire toolkit (hcxdumptool and hcxtools) is designed to be an analysis toolkit.
 
 ## Requirements
 
@@ -49,19 +59,17 @@ Alternatively, the hcxdumptool 6.3.2 can be installed to the system and hcxdumpt
 
 hcxtools is mostly optional on the PocketCHIP altogether, but may be useful to some users nonetheless.
 
-The latest version of hcxtools does not build successfully for the PocketCHIP device. Version 6.1.3 ([this commit](https://github.com/ZerBea/hcxtools/tree/f6695efe646cff4a8c434af9ad01059c2fb5e515) from November 2020) or Version 5.3.0 ([this commit](https://github.com/ZerBea/hcxtools/tree/52d984890f3df31ecb4333681fb2512318ada6f9)) can be installed and run on the PocketCHIP device. Which version is best for the user is up to their discretion.
+The latest version of hcxtools does not build successfully for the PocketCHIP device. Version 6.1.3 ([this commit](https://github.com/ZerBea/hcxtools/tree/f6695efe646cff4a8c434af9ad01059c2fb5e515) from November 2020) or Version 5.3.0 ([this commit](https://github.com/ZerBea/hcxtools/tree/52d984890f3df31ecb4333681fb2512318ada6f9) from December 2019) can be installed and run on the PocketCHIP device. Which version is best for the user is up to their discretion.
 
 ## Installation
 
 ### Software Dependencies
 
-This tutorial assumes that the Linux operating system running on 
-
 Dependencies can either be installed via APT (using the CHIP mirror described [HERE](http://chip.jfpossibilities.com/chip/debian/)), or by directly installing the required *.deb package files. Both methods are described below.
 
 #### APT
 
-The required dependencies can be installed using the following command:
+The following command will install the required dependencies via APT.
 
 ```bash
 sudo apt install aircrack-ng libcurl4-openssl-dev libssl-dev zlib1g-dev libc6 libc6-dev linux-libc-dev
@@ -77,7 +85,7 @@ for u in `cat /path/to/deb_urls.txt`; do wget -O `echo "$u" | rev | cut -d"/" -f
 ```
 
 &nbsp;  
-Then install the downloaded packages with the following command:
+Install all the downloaded packages with the following command:
 ```bash
 sudo dpkg -i -E *.deb
 ```
@@ -86,7 +94,7 @@ sudo dpkg -i -E *.deb
 
 ### Tools (hcxdumptool and hcxtools)
 
-All files referenced below are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). These files must first be copied to the PocketCHIP device.
+All files referenced below are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). These files must first be copied to the PocketCHIP device. Only one version of `hcxdumptool` and `hcxtools` may be installed to the system under `/usr/local` at one time. Alternatively, the binaries may be executed from a local directory.
 
 The following commands will install hcxdumptool 6.3.2 to the system (under `/usr/local`):
 
@@ -136,21 +144,21 @@ sudo /sbin/depmod -a
 
 Plug the USB wireless adapter into the PocketCHIP device USB port.
 
-The following command will load the wireless driver (this command can be safely run even if the driver has already been loaded).
+Load the wireless driver (this command can be safely run even if the driver has already been loaded).
 
 ```bash
 sudo modprobe 88XXau
 ```
 
 &nbsp;  
-After this, the wireless adapter should appear as interface `wlan2`. This can be confirmed with the following command (the output should start with `wlanX`, which is the interface assigned to the USB adapter).
+After this, the wireless adapter should appear as interface `wlan2`. Confirm this with the following command (the output should start with `wlanX`, which is the interface assigned to the USB adapter).
 
 ```bash
 sudo airmon-ng | grep rtl88XXau
 ```
 
 &nbsp;  
-hcxdumptool requires NetworkManager and wpa_supplicant to be terminated (which will also halt the wireless connection on the primary `wlan0` adapter) in order to work properly. This can be accomplished via several different methods.
+hcxdumptool requires NetworkManager and wpa_supplicant to be terminated (which will also halt the wireless connection on the primary `wlan0` adapter) in order to work properly. This can be accomplished via several methods.
 
 If using hcxdumptool 6.3.2: using the following `stopnm` command:
 
@@ -159,7 +167,7 @@ sudo stopnm
 ```
 
 &nbsp;  
-If using hcxdumptool 6.1.2: using the following `makemonnb` command:
+If using hcxdumptool 6.1.2: using the following `makemonnb` command (replace `wlan2` with the correct interface if the USB adapter was assigned a different interface):
 
 ```bash
 sudo makemonnb wlan2
@@ -172,7 +180,8 @@ If using either hcxdumptool version: using the following `airmon-ng` command:
 sudo airmon-ng check kill
 ```
 
-hcxdumptool can then be executed and used as normal. Guidance on how to use hcxdumptool is not covered here.
+&nbsp;  
+hcxdumptool can then be executed (as root or via sudo) and used as normal. **Guidance on how to use hcxdumptool is not covered here and must be obtained elsewhere.**
 
 ## Restoring Wireless Connections After Usage
 
@@ -185,7 +194,7 @@ sudo startnm
 ```
 
 &nbsp;  
-If using hcxdumptool 6.1.2: using the following `killmonnb` command:
+If using hcxdumptool 6.1.2: using the following `killmonnb` command (replace `wlan2` with the correct interface if the USB adapter was assigned a different interface):
 
 ```bash
 sudo killmonnb wlan2
