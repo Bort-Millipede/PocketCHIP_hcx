@@ -138,16 +138,23 @@ sudo /sbin/depmod -a
 
 ## Usage
 
-Plug the USB wireless adapter into the PocketCHIP device USB port.
+Plug the USB wireless adapter into the PocketCHIP device USB port. 
 
-Load the wireless driver (this command can be safely run even if the driver has already been loaded).
+To ensure the wireless driver is loaded correctly, the [pocketchip_88XXau_helper.sh](pocketchip_88XXau_helper.sh) helper script can be executed (copied to `/usr/local/bin`).
+
+```bash
+sudo /usr/local/bin/pocketchip_88XXau_helper.sh
+```
+
+&nbsp;  
+Alternatively: Load the wireless driver (this command can be safely run even if the driver has already been loaded).
 
 ```bash
 sudo modprobe 88XXau
 ```
 
 &nbsp;  
-After this, the wireless adapter should appear as interface `wlan2`. Confirm this with the following command (the output should start with `wlanX`, which is the interface assigned to the USB adapter).
+After manually loading the driver, the wireless adapter should appear as interface `wlan2`. Confirm this with the following command (the output should start with `wlanX`, which is the interface assigned to the USB adapter).
 
 ```bash
 sudo airmon-ng | grep rtl88XXau
