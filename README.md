@@ -69,7 +69,7 @@ Dependencies can either be installed via APT (using the CHIP mirror described [H
 
 #### APT
 
-The following command will install the required dependencies via APT.
+Execute the following command to install the required dependencies via APT.
 
 ```bash
 sudo apt install aircrack-ng libcurl4-openssl-dev libssl-dev zlib1g-dev libc6 libc6-dev linux-libc-dev
@@ -78,15 +78,11 @@ sudo apt install aircrack-ng libcurl4-openssl-dev libssl-dev zlib1g-dev libc6 li
 
 #### DEB Package Files
 
-Enter the directory (ex. ~/Downloads) where the *.deb files should be downloaded. Then execute the following command to download the files (referencing the [deb_urls.txt](deb_urls.txt) file):
+Execute the following commands to download (replace `/path/to/` with path to the [deb_urls.txt](deb_urls.txt) file) and install the files. All files will be downloaded to `~/Downloads`.
 
 ```bash
+cd ~/Downloads
 for u in `cat /path/to/deb_urls.txt`; do wget -O `echo "$u" | rev | cut -d"/" -f 1 | rev` "$u"; done
-```
-
-&nbsp;  
-Install all the downloaded packages with the following command:
-```bash
 sudo dpkg -i -E *.deb
 ```
 
@@ -96,7 +92,7 @@ sudo dpkg -i -E *.deb
 
 All files referenced below are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). These files must first be copied to the PocketCHIP device. Only one version of `hcxdumptool` and `hcxtools` may be installed to the system under `/usr/local` at one time. Alternatively, the binaries may be executed from a local directory.
 
-The following commands will install hcxdumptool 6.3.2 to the system (under `/usr/local`):
+Execute the following commands to install hcxdumptool 6.3.2 to the system (under `/usr/local`; replace `/path/to/` with path to the **hcxdumptool-6.3.2-215-g2485405.pocketchip.tar.gz** file):
 
 ```bash
 cd /
@@ -104,7 +100,7 @@ sudo tar xzpf /path/to/hcxdumptool-6.3.2-215-g2485405.pocketchip.tar.gz
 ```
 
 &nbsp;  
-The following commands will install hcxdumptool 6.1.2 to the system (under `/usr/local`):
+Execute the following commands to install hcxdumptool 6.1.2 to the system (under `/usr/local`; replace `/path/to/` with path to the **hcxdumptool-6.1.2-8-ge3df2d3.pocketchip.tar.gz** file):
 
 ```bash
 cd /
@@ -112,7 +108,7 @@ sudo tar xzpf /path/to/hcxdumptool-6.1.2-8-ge3df2d3.pocketchip.tar.gz
 ```
 
 &nbsp;  
-The following commands will install hcxtools 6.1.3 to the system (under `/usr/local`):
+Execute the following commands to install hcxtools 6.1.3 to the system (under `/usr/local`; replace `/path/to/` with path to the **hcxtools-6.1.3-53-gf6695ef.pocketchip.tar.gz** file):
 
 ```bash
 cd /
@@ -120,7 +116,7 @@ sudo tar xzpf /path/to/hcxtools-6.1.3-53-gf6695ef.pocketchip.tar.gz
 ```
 
 &nbsp;  
-The following commands will install hcxtools 5.3.0 to the system (under `/usr/local`):
+Execute the following commands to install hcxtools 5.3.0 to the system (under `/usr/local`; replace `/path/to/` with path to the **hcxtools-5.3.0.pocketchip.tar.gz** file):
 
 ```bash
 cd /
@@ -131,11 +127,11 @@ sudo tar xzpf /path/to/hcxtools-5.3.0.pocketchip.tar.gz
 
 The `88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz` file referenced below is available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). This file must first be copied to the PocketCHIP device.
 
-The following commands will install the wireless driver (loadable kernel module) to the correct directory and regenerate the system's list of kernel module dependencies.
+Execute the following commands to install the wireless driver (loadable kernel module) to the correct directory and regenerate the system's list of kernel module dependencies (replace `/path/to/` with path to the **88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz** file).
 
 ```bash
 sudo mkdir -p /lib/modules/4.4.13-ntc-mlc/kernel/net/wireless
-sudo sh -c "gzip -dc 88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz > /lib/modules/4.4.13-ntc-mlc/kernel/net/wireless/88XXau.ko"
+sudo sh -c "gzip -dc /path/to/88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz > /lib/modules/4.4.13-ntc-mlc/kernel/net/wireless/88XXau.ko"
 sudo chmod 644 /lib/modules/4.4.13-ntc-mlc/kernel/net/wireless/88XXau.ko
 sudo /sbin/depmod -a
 ```
@@ -181,7 +177,7 @@ sudo airmon-ng check kill
 ```
 
 &nbsp;  
-hcxdumptool can then be executed (as root or via sudo) and used as normal. **Guidance on how to use hcxdumptool is not covered here and must be obtained elsewhere.**
+hcxdumptool can then be executed (as root or via sudo) and used as normal. **Guidance on how to use hcxdumptool is not covered here and must be obtained [elsewhere](https://github.com/ZerBea/hcxdumptool).**
 
 ## Restoring Wireless Connections After Usage
 
@@ -206,6 +202,13 @@ If using either hcxdumptool version: using the following generic commands:
 ```bash
 sudo systemctl start NetworkManager
 sudo systemctl start wpa_supplicant
+```
+
+&nbsp;  
+The following command may be also necessary to fully establish the wireless connection.
+
+```bash
+sudo dhclient -v -4 wlan0
 ```
 
 ## Usage Examples
