@@ -25,9 +25,9 @@ https://archive.debian.org/debian-archive/debian/pool/main/libg/libgpg-error/lib
 https://archive.debian.org/debian-archive/debian-security/pool/updates/main/z/zlib/zlib1g_1.2.8.dfsg-2+deb8u1_armhf.deb
 https://archive.debian.org/debian-archive/debian-security/pool/updates/main/z/zlib/zlib1g-dev_1.2.8.dfsg-2+deb8u1_armhf.deb
 https://archive.debian.org/debian-archive/debian/pool/main/g/glibc/libc6-dev_2.19-18+deb8u10_armhf.deb
-https://archive.debian.org/debian/pool/main/g/glibc/libc-dev-bin_2.19-18+deb8u10_armhf.deb
-https://archive.debian.org/debian-security/pool/updates/main/l/linux/linux-libc-dev_3.16.84-1_armhf.deb
-http://archive.debian.org/debian-archive/debian/pool/main/a/aircrack-ng/aircrack-ng_1.2-0~beta3-4_armhf.deb
-http://archive.debian.org/debian-archive/debian/pool/main/i/ieee-data/ieee-data_20150531.1~deb8u2_all.deb
-http://archive.debian.org/debian-archive/debian/pool/main/w/wireless-tools/libiw30_30~pre9-8_armhf.deb
-http://archive.debian.org/debian-archive/debian/pool/main/w/wireless-tools/wireless-tools_30~pre9-8_armhf.deb
+https://archive.debian.org/debian-archive/debian/pool/main/g/glibc/libc-dev-bin_2.19-18+deb8u10_armhf.deb
+https://archive.debian.org/debian-archive/debian-security/pool/updates/main/l/linux/linux-libc-dev_3.16.84-1_armhf.deb
+https://archive.debian.org/debian-archive/debian/pool/main/a/aircrack-ng/aircrack-ng_1.2-0~beta3-4_armhf.deb
+https://archive.debian.org/debian-archive/debian/pool/main/i/ieee-data/ieee-data_20150531.1~deb8u2_all.deb
+https://archive.debian.org/debian-archive/debian/pool/main/w/wireless-tools/libiw30_30~pre9-8_armhf.deb
+https://archive.debian.org/debian-archive/debian/pool/main/w/wireless-tools/wireless-tools_30~pre9-8_armhf.deb

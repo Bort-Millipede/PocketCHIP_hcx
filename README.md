@@ -16,7 +16,7 @@ hcxdumptool/hcxtools is NOT recommended to be used by inexperienced users or new
 
 ## Requirements
 
-* PocketCHIP device (obviously)
+* PocketCHIP device (obviously) running Linux Kernel version `4.4.13-ntc-mlc` (see below)
 * [Archer T2U Nano](https://www.tp-link.com/us/home-networking/usb-adapter/archer-t2u-nano/) USB Wireless adapter (Amazon link available on product page)
 
 ### Linux Kernel Version
