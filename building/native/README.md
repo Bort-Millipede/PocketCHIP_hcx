@@ -1,6 +1,6 @@
 # Building hcxdumptool, hcxtools, and Wireless Driver (on PocketCHIP)
 
-This describes how to build hcxdumptool, hcxtools, and the wireless driver (88XXau) for PocketCHIP directly on the device.
+This describes how to build hcxdumptool, hcxtools, and the wireless driver ([RTL8812AU](https://github.com/aircrack-ng/rtl8812au)) for PocketCHIP directly on the device.
 
 This method for building the required software is much simpler than building the software [via cross-compilation](../cross-compiling). However, due to the limited processing power of the PocketCHIP device, this method may take an extended period of time to complete. For this reason and others, the author does NOT recommend this method for building the required software.
 
@@ -143,7 +143,7 @@ sudo cp manpages/* /usr/local/share/man/man1/.
 ```
 
 &nbsp;  
-Create installation archive **hcxtools-6.1.3-53-gf6695ef.pocketchip.tar.gz** for installing onto the PocketCHIP device again later (ex. after a device re-flash).
+**OPTIONAL:** Create installation archive **hcxtools-6.1.3-53-gf6695ef.pocketchip.tar.gz** for installing onto the PocketCHIP device again later (ex. after a device re-flash).
 
 ```bash
 make DESTDIR=`pwd` install
@@ -186,7 +186,7 @@ sudo cp manpages/* /usr/local/share/man/man1/.
 ```
 
 &nbsp;  
-Create installation archive **hcxtools-5.3.0.pocketchip.tar.gz** for installing onto the PocketCHIP device again later (ex. after a device re-flash).
+**OPTIONAL:** Create installation archive **hcxtools-5.3.0.pocketchip.tar.gz** for installing onto the PocketCHIP device again later (ex. after a device re-flash).
 
 ```bash
 make DESTDIR=`pwd` install
@@ -198,9 +198,7 @@ tar czf hcxtools-5.3.0.pocketchip.tar.gz usr
 
 ### Wireless Driver (rtl8812au v5.6.4.2_35491.20191025)
 
-These instructions use [this commit](https://github.com/aircrack-ng/rtl8812au/tree/e7e83f2593c9e67e3ee50d032f1ad39fe47ea81d) from April 2021. The driver is compiled against the Linux kernel source, and therefore the Linux kernel source for 4.4.13-ntc-mlc (the kernel version in use on Linux on the PocketCHIP device) is also required (found [HERE](https://github.com/joelguittet/chip-linux/tree/debian/4.4.13-ntc-mlc)).
-
-Lastly, the Linux kernel config file is required. This can be found at `/boot/config-4.4.13-ntc-mlc`.
+These instructions use [this commit](https://github.com/aircrack-ng/rtl8812au/tree/e7e83f2593c9e67e3ee50d032f1ad39fe47ea81d) from April 2021. The driver is compiled against the Linux kernel source, and therefore the Linux kernel source for `4.4.13-ntc-mlc` (the kernel version in use on Linux on the PocketCHIP device) is also required (found [HERE](https://github.com/joelguittet/chip-linux/tree/debian/4.4.13-ntc-mlc)).
 
 Obtain the Linux kernel source. Clone the `debian/4.4.13-ntc-mlc` branch of the `chip-linux` repository.  
 **Note:** This will likely take a VERY long time to complete.
@@ -213,17 +211,17 @@ cd linux-source-4.4.13-ntc-mlc
 ```
 
 &nbsp;  
-Clear out all previous kernel builds and configurations, copy the Linux kernel config file to the directory (replace `/path/to/` with path to the kernel config file), and update the Kernel version specified in the Makefile to `4.4.13-ntc-mlc`.
+Clear out all previous kernel builds and configurations, copy the Linux kernel config file to the directory, and update the Kernel version specified in the Makefile to `4.4.13-ntc-mlc`.
 
 ```bash
 sudo make LOCALVERSION= mrproper
-sudo cp /path/to/config-4.4.13-ntc-mlc .config
+sudo cp /boot/config-4.4.13-ntc-mlc .config
 sudo sed -i.bak 's/^EXTRAVERSION =[\s]\{0,\}$/EXTRAVERSION = -ntc-mlc/g' Makefile
 ```
 
 &nbsp;  
 Perform preliminary setup of the kernel source directory. If prompted by `make oldconfig` command to make choices, pressing `ENTER` will choose the default choice.  
-To immediately exit out of `make LOCALVERSION= menuconfig` command, press: `ESC ESC`  
+To immediately exit out of the `make menuconfig` command, press: `ESC ESC`  
 **Note:** These commands may take a while to complete.
 
 ```bash
@@ -261,7 +259,7 @@ sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
 ```
 
 &nbsp;  
-Build the driver. The compiled kernel module will be the `88XXau.ko` file.  
+Build the driver. The compiled kernel module will be the outputted `88XXau.ko` file.  
 **Note:** This will likely take a long time to complete.
 
 ```bash

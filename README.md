@@ -1,6 +1,8 @@
 # PocketCHIP hcx (hcxdumptool and hcxtools)
 
-Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device originally manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. Finally, building instructions for advanced users who prefer to build their own software and driver (rather than the precompiled ones available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)) are included in subpages ([Cross-Compilation](building/cross-compiling) and [Native Build](building/native)).
+Instructions for installing (outdated versions of) hcxdumptool and hcxtools on the [PocketCHIP](https://en.wikipedia.org/wiki/CHIP_(computer)#Pocket_CHIP_and_Pockulus) device originally manufactured by Next Thing Co. Limited usage instructions for hcxdumptool are also included. 
+
+Precompiled software and driver builds are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). For advanced users who prefer to build their own software and driver, build instructions are available in subpages ([Cross-Compilation](building/cross-compiling) and [Native Build](building/native)).
 
 While the information included here could easily be used for other renditions of the CHIP computer, the PocketCHIP is specifically targeted due to the portable nature of the device.
 
@@ -21,11 +23,11 @@ hcxdumptool/hcxtools is NOT recommended to be used by inexperienced users or new
 
 ### Linux Kernel Version
 
-These instructions assume that Linux kernel version `4.4.13-ntc-mlc` is in use on the PocketCHIP device. Unfortunately, the Linux operating system on PocketCHIP does not appear to support force-loading kernel modules compiled for kernel modules not matching the running kernel version.
+These instructions assume that Linux kernel version `4.4.13-ntc-mlc` is in use on the PocketCHIP device. Unfortunately, the Linux operating system on PocketCHIP does not support force-loading kernel modules (in this case: the wireless adapter module) compiled for kernel versions not matching the running kernel version.
 
 To ensure the recommended kernel is in use, the PocketCHIP device can be freshly flashed with the `stable-pocketchip-b126` image available [HERE](https://archive.org/details/C.h.i.p.FlashCollection). This is recommended by the author but is ultimately not required if the PocketCHIP is already running the required kernel version.
 
-The building instructions could be easily adapted to support other kernel versions, but this will be done at one's own risk. The author will consider adding support for other kernel versions if sufficient interest is expressed.
+The building instructions ([Cross-Compilation](building/cross-compiling) and [Native Build](building/native)) could be easily adapted to build the wireless driver for other kernel versions. However, this will be done at one's own risk. The author will consider adding support for other kernel versions if sufficient interest is expressed (please submit an [issue](https://github.com/Bort-Millipede/PocketCHIP_hcx/issues/new/choose) for this).
 
 ### Why is a USB adapter required?
 
@@ -53,13 +55,19 @@ The latest version of hcxdumptool does not build successfully for the PocketCHIP
 * **6.3.2:** Much newer version with countless improvements and bugfixes, but not containing certain past troubleshooting functionality (such as `--check_driver` and `--check_injection`).
 * **6.1.2:** Older version without newer features/functionality, but containing troubleshooting functionality (`--check_driver` and `--check_injection`).
 
-Alternatively, the hcxdumptool 6.3.2 can be installed to the system and hcxdumptool 6.1.2 can be extracted to a local directly and executed directly to make use of the troubleshooting functionality if needed.
+Alternatively, the hcxdumptool 6.3.2 can be installed to the system and hcxdumptool 6.1.2 can be executed from a local directory to make use of the troubleshooting functionality if needed.
 
 ### hcxtools
 
 hcxtools is mostly optional on the PocketCHIP altogether, but may be useful to some users nonetheless.
 
 The latest version of hcxtools does not build successfully for the PocketCHIP device. Version 6.1.3 ([this commit](https://github.com/ZerBea/hcxtools/tree/f6695efe646cff4a8c434af9ad01059c2fb5e515) from November 2020) or Version 5.3.0 ([this commit](https://github.com/ZerBea/hcxtools/tree/52d984890f3df31ecb4333681fb2512318ada6f9) from December 2019) can be installed and run on the PocketCHIP device. Which version is best for the user is up to their discretion.
+
+## Building
+
+For advanced users that prefer to build the software and drivers themselves (rather than use the precompiled software and driver builds available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases)), two options are outlined for this:
+* [Cross-Compilation (Recommended)](building/cross-compiling)
+* [Native Build on PocketCHIP](building/native)
 
 ## Installation
 
@@ -90,7 +98,7 @@ sudo dpkg -i -E *.deb
 
 ### Tools (hcxdumptool and hcxtools)
 
-All files referenced below are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). These files must first be copied to the PocketCHIP device. Only one version of `hcxdumptool` and `hcxtools` may be installed to the system under `/usr/local` at one time. Alternatively, the binaries may be executed from a local directory.
+All files referenced below are available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). These files must be copied to the PocketCHIP device. Only one version of `hcxdumptool` and `hcxtools` may be installed to the system under `/usr/local` at one time. Alternatively, the binaries may be executed from a local directory.
 
 Execute the following commands to install hcxdumptool 6.3.2 to the system (under `/usr/local`; replace `/path/to/` with path to the **hcxdumptool-6.3.2-215-g2485405.pocketchip.tar.gz** file):
 
@@ -125,7 +133,7 @@ sudo tar xzpf /path/to/hcxtools-5.3.0.pocketchip.tar.gz
 
 ### Wireless Driver
 
-The `88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz` file referenced below is available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). This file must first be copied to the PocketCHIP device.
+The `88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz` file referenced below is available in [Releases](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases). This file must be copied to the PocketCHIP device.
 
 Execute the following commands to install the wireless driver (loadable kernel module) to the correct directory and regenerate the system's list of kernel module dependencies (replace `/path/to/` with path to the **88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz** file).
 
@@ -136,9 +144,13 @@ sudo chmod 644 /lib/modules/4.4.13-ntc-mlc/kernel/net/wireless/88XXau.ko
 sudo /sbin/depmod -a
 ```
 
-## Usage
+## Tool Usage
 
 Plug the USB wireless adapter into the PocketCHIP device USB port. 
+
+### Load Wireless Driver
+
+#### Automatic
 
 To ensure the wireless driver is loaded correctly, the [pocketchip_88XXau_helper.sh](pocketchip_88XXau_helper.sh) helper script can be executed (copied to `/usr/local/bin`).
 
@@ -146,8 +158,9 @@ To ensure the wireless driver is loaded correctly, the [pocketchip_88XXau_helper
 sudo /usr/local/bin/pocketchip_88XXau_helper.sh
 ```
 
-&nbsp;  
-Alternatively: Load the wireless driver (this command can be safely run even if the driver has already been loaded).
+#### Manual
+
+Load the wireless driver (this command can be safely run even if the driver has already been loaded).
 
 ```bash
 sudo modprobe 88XXau
@@ -160,7 +173,8 @@ After manually loading the driver, the wireless adapter should appear as interfa
 sudo airmon-ng | grep rtl88XXau
 ```
 
-&nbsp;  
+### hcxdumptool
+
 hcxdumptool requires NetworkManager and wpa_supplicant to be terminated (which will also halt the wireless connection on the primary `wlan0` adapter) in order to work properly. This can be accomplished via several methods.
 
 If using hcxdumptool 6.3.2: using the following `stopnm` command:
@@ -170,10 +184,10 @@ sudo stopnm
 ```
 
 &nbsp;  
-If using hcxdumptool 6.1.2: using the following `makemonnb` command (replace `wlan2` with the correct interface if the USB adapter was assigned a different interface):
+If using hcxdumptool 6.1.2: using the following `makemonnb` command (replace `wlanX` with the correct interface for the USB adapter):
 
 ```bash
-sudo makemonnb wlan2
+sudo makemonnb wlanX
 ```
 
 &nbsp;  
@@ -197,10 +211,10 @@ sudo startnm
 ```
 
 &nbsp;  
-If using hcxdumptool 6.1.2: using the following `killmonnb` command (replace `wlan2` with the correct interface if the USB adapter was assigned a different interface):
+If using hcxdumptool 6.1.2: using the following `killmonnb` command (replace `wlanX` with the correct interface for the USB adapter):
 
 ```bash
-sudo killmonnb wlan2
+sudo killmonnb wlanX
 ```
 
 &nbsp;  
@@ -212,7 +226,7 @@ sudo systemctl start wpa_supplicant
 ```
 
 &nbsp;  
-The following command may be also necessary to fully establish the wireless connection.
+The following command may be also necessary to fully re-establish the wireless connection.
 
 ```bash
 sudo dhclient -v -4 wlan0
@@ -225,10 +239,4 @@ sudo dhclient -v -4 wlan0
 
 ![](images/pocketchip_hcxdumptool_6.1.2.png)  
 *hcxdumptool 6.1.2 executed on PocketCHIP*
-
-## Building
-
-For advanced users that prefer to build the software and drivers themselves, two options are outlined for this:
-* [Cross-Compilation (Recommended)](building/cross-compiling)
-* [Native Build on PocketCHIP](building/native)
 

@@ -1,6 +1,6 @@
 # Building hcxdumptool, hcxtools, and Wireless Driver (Cross-Compiling)
 
-This describes how to build hcxdumptool, hcxtools, and the wireless driver (88XXau) for PocketCHIP using [cross-compilation](https://en.wikipedia.org/wiki/Cross_compiler) tools on an Ubuntu 14.04 virtual machine.
+This describes how to build hcxdumptool, hcxtools, and the wireless driver ([RTL8812AU](https://github.com/aircrack-ng/rtl8812au)) for PocketCHIP using [cross-compilation](https://en.wikipedia.org/wiki/Cross_compiler) tools on an Ubuntu 14.04 virtual machine.
 
 This method for building the required software is much faster than building the required software [directly on the PocketCHIP device itself](../native). However, setting up a cross-compilation environment can be a complicated undertaking that may not be suitable for less experienced users. Nonetheless, the author recommends this method for building the required software.
 
@@ -8,11 +8,11 @@ All cloned repositories and other files downloaded below will be saved to the `~
 
 ## Requirements
 
-This tutorial requires an Ubuntu 14.04 virtual machine. This can either be:
+This tutorial requires an Ubuntu 14.04 virtual machine. This can be obtained via either:
 * The prebuilt `CHIP-SDK.ova` virtual machine available [HERE](https://archive.org/details/C.h.i.p.FlashCollection) (this is recommended by the author for simplicity's sake); OR
 * A fresh Ubuntu 14.04 installation, after which [this setup script](https://raw.githubusercontent.com/techn0punk/CHIP-SDK/refs/heads/master/setup_ubuntu1404.sh) can be executed to install all the needed tools.
 
-Initial setup of this virtual machine is not covered here. Only setup specifically required for building hcxdumptool, hcxtools, and the wireless driver is covered here.
+Initial setup of this virtual machine is not covered here. Only setup specifically required for building hcxdumptool, hcxtools, and the wireless driver is covered.
 
 ## Installing Cross-Compilation Dependencies
 
@@ -197,10 +197,11 @@ tar czf hcxtools-5.3.0.pocketchip.tar.gz usr
 
 ### Wireless Driver (rtl8812au v5.6.4.2_35491.20191025)
 
-These instructions use [this commit](https://github.com/aircrack-ng/rtl8812au/tree/e7e83f2593c9e67e3ee50d032f1ad39fe47ea81d) from April 2021. The driver is compiled against the Linux kernel source, and therefore the Linux kernel source for 4.4.13-ntc-mlc (the kernel version in use on Linux on the PocketCHIP device) is also required (found [HERE](https://github.com/joelguittet/chip-linux/tree/debian/4.4.13-ntc-mlc)).
+These instructions use [this commit](https://github.com/aircrack-ng/rtl8812au/tree/e7e83f2593c9e67e3ee50d032f1ad39fe47ea81d) from April 2021. The driver is compiled against the Linux kernel source, and therefore the Linux kernel source for `4.4.13-ntc-mlc` (the kernel version in use on Linux on the PocketCHIP device) is also required (found [HERE](https://github.com/joelguittet/chip-linux/tree/debian/4.4.13-ntc-mlc)).
 
 Lastly, the Linux kernel config file is required. This can be found on the PocketCHIP device at `/boot/config-4.4.13-ntc-mlc`.
 
+&nbsp;  
 Obtain the Linux kernel source. Clone the `debian/4.4.13-ntc-mlc` branch of the `chip-linux` repository.
 
 ```bash
@@ -219,7 +220,7 @@ sed -i.bak 's/^EXTRAVERSION =[\s]\{0,\}$/EXTRAVERSION = -ntc-mlc/g' Makefile
 
 &nbsp;  
 Perform preliminary setup of the kernel source directory. If prompted by `make oldconfig` command to make choices, pressing `ENTER` will choose the default choice.  
-To immediately exit out of `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- LOCALVERSION= menuconfig` command, press: `ESC ESC`
+To immediately exit out of the `make menuconfig` command, press: `ESC ESC`
 
 ```bash
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- LOCALVERSION= oldconfig
@@ -260,7 +261,7 @@ sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
 ```
 
 &nbsp;  
-Build the driver. The compiled kernel module will be the `88XXau.ko` file.
+Build the driver. The compiled kernel module will be the outputted `88XXau.ko` file.
 
 ```bash
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j2 KVER=4.4.13-ntc-mlc KSRC=$KSRC
