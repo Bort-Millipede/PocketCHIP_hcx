@@ -23,9 +23,13 @@ hcxdumptool/hcxtools is NOT recommended to be used by inexperienced users or new
 
 ### Linux Kernel Version
 
-These instructions assume that Linux kernel version `4.4.13-ntc-mlc` is in use on the PocketCHIP device. Unfortunately, the Linux operating system on PocketCHIP does not support force-loading kernel modules (in this case: the wireless adapter module) compiled for kernel versions not matching the running kernel version.
+These instructions assume that Linux kernel version `4.4.13-ntc-mlc` is in use on the PocketCHIP device. Unfortunately, the Linux operating system on PocketCHIP does not support force-loading kernel modules (in this case: the [wireless adapter module](https://github.com/Bort-Millipede/PocketCHIP_hcx/releases/download/initial/88XXau_v5.6.4.2_35491.20191025_4.4.13-ntc-mlc.pocketchip.gz)) compiled for kernel versions not matching the running kernel version. Fortunately, this kernel version appears to be installed on many PocketCHIP and CHIP images.
 
-To ensure the recommended kernel is in use, the PocketCHIP device can be freshly flashed with the `stable-pocketchip-b126` image available [HERE](https://archive.org/details/C.h.i.p.FlashCollection). This is recommended by the author but is ultimately not required if the PocketCHIP is already running the required kernel version.
+To ensure the recommended kernel is in use, the PocketCHIP device can be freshly flashed with either of the following images (available [HERE](https://archive.org/details/C.h.i.p.FlashCollection)).
+* `stable-pocketchip-b126`
+* `testing-pocketchip-b667`
+
+This is recommended by the author but is ultimately not required if the device is already running the required kernel version.
 
 The building instructions ([Cross-Compilation](building/cross-compiling) and [Native Build](building/native)) could be easily adapted to build the wireless driver for other kernel versions. However, this will be done at one's own risk. The author will consider adding support for other kernel versions if sufficient interest is expressed (please submit an [issue](https://github.com/Bort-Millipede/PocketCHIP_hcx/issues/new/choose) for this).
 
@@ -152,7 +156,17 @@ Plug the USB wireless adapter into the PocketCHIP device USB port.
 
 #### Automatic
 
-To ensure the wireless driver is loaded correctly, the [pocketchip_88XXau_helper.sh](pocketchip_88XXau_helper.sh) helper script can be executed (copied to `/usr/local/bin`).
+To ensure the wireless driver is loaded correctly, the [pocketchip_88XXau_helper.sh](pocketchip_88XXau_helper.sh) helper script can be executed.
+
+To install the script, copy it to the device to the `/usr/local/sbin` directory and set the correct file permissions.
+
+```bash
+sudo /path/to/pocketchip_88XXau_helper.sh /usr/local/sbin/.
+sudo chmod 755 /usr/local/sbin/pocketchip_88XXau_helper.sh
+```
+
+&nbsp;  
+Then execute the script.
 
 ```bash
 sudo /usr/local/bin/pocketchip_88XXau_helper.sh
