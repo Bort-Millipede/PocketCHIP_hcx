@@ -169,7 +169,7 @@ sudo chmod 755 /usr/local/sbin/pocketchip_88XXau_helper.sh
 Then execute the script.
 
 ```bash
-sudo /usr/local/bin/pocketchip_88XXau_helper.sh
+sudo /usr/local/sbin/pocketchip_88XXau_helper.sh
 ```
 
 #### Manual
